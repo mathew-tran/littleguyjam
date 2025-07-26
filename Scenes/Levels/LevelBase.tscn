@@ -1,9 +1,15 @@
-[gd_scene load_steps=9 format=4 uid="uid://digkimumsj2um"]
+[gd_scene load_steps=23 format=4 uid="uid://digkimumsj2um"]
 
 [ext_resource type="Script" uid="uid://bpsgu72xf2ecj" path="res://Scripts/LevelBase.gd" id="1_7t6so"]
 [ext_resource type="Texture2D" uid="uid://bply0hpapnoll" path="res://Art/Environment/Dirt.png" id="1_ami44"]
 [ext_resource type="PackedScene" uid="uid://bh2ro0dap7bj" path="res://Prefab/Door.tscn" id="2_encki"]
 [ext_resource type="Texture2D" uid="uid://bysfcvc7fwfo5" path="res://Art/Environment/Spike.png" id="3_63row"]
+[ext_resource type="Texture2D" uid="uid://ckvaf2q8csl3s" path="res://Art/Environment/Grass.png" id="3_jnsj8"]
+[ext_resource type="Texture2D" uid="uid://bykffduw7min7" path="res://Art/Environment/Dirt2.png" id="4_ks63r"]
+[ext_resource type="Texture2D" uid="uid://bdbj0huvm3ra7" path="res://Art/Environment/Dirt3.png" id="5_bybyf"]
+[ext_resource type="Texture2D" uid="uid://dd3kldfhcbggp" path="res://Art/Environment/platform1.png" id="6_j6j3i"]
+[ext_resource type="Texture2D" uid="uid://7ft08iyg8e53" path="res://Art/Environment/platformbig.png" id="7_b072a"]
+[ext_resource type="Texture2D" uid="uid://dejt7hariylnc" path="res://Art/Environment/Coin.png" id="9_y3oa2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_63row"]
 
@@ -13,12 +19,41 @@ texture_region_size = Vector2i(126, 126)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-63, -63, 63, -63, 63, 63, -63, 63)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jnsj8"]
-texture = ExtResource("3_63row")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ks63r"]
+texture = ExtResource("3_jnsj8")
 texture_region_size = Vector2i(126, 126)
 0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-1, -38, 0, -37, 63, 63, -63, 63)
-0:0/0/custom_data_0 = "Spike"
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-63, -63, 63, -63, 63, 63, -63, 63)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bybyf"]
+texture = ExtResource("4_ks63r")
+texture_region_size = Vector2i(126, 126)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-63, -63, 63, -63, 63, 63, -63, 63)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j6j3i"]
+texture = ExtResource("5_bybyf")
+texture_region_size = Vector2i(126, 126)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-63, -63, 63, -63, 63, 63, -63, 63)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b072a"]
+texture = ExtResource("6_j6j3i")
+texture_region_size = Vector2i(126, 126)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15, -31, 39, -19, 49, 11, -5, 21, -42, 4)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y3oa2"]
+texture = ExtResource("7_b072a")
+texture_region_size = Vector2i(126, 126)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-23, -9, 63, -24, 63, 63, -39, 63)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-63, -28, 19, 5, 31, 28, 26, 63, -63, 63)
+0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-34, -63, 63, -63, 63, 31, 15, 33, -17, 21)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-63, -63, 21, -63, -3, 15, -24, 26, -63, 32)
 
 [sub_resource type="TileSet" id="TileSet_7t6so"]
 tile_size = Vector2i(126, 126)
@@ -27,7 +62,38 @@ physics_layer_0/physics_material = SubResource("PhysicsMaterial_63row")
 custom_data_layer_0/name = "TileType"
 custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_encki")
-sources/1 = SubResource("TileSetAtlasSource_jnsj8")
+sources/2 = SubResource("TileSetAtlasSource_ks63r")
+sources/3 = SubResource("TileSetAtlasSource_bybyf")
+sources/4 = SubResource("TileSetAtlasSource_j6j3i")
+sources/5 = SubResource("TileSetAtlasSource_b072a")
+sources/7 = SubResource("TileSetAtlasSource_y3oa2")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_63row"]
+texture = ExtResource("3_63row")
+texture_region_size = Vector2i(126, 126)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-2, -33, -1, -36, 63, 63, -63, 63)
+
+[sub_resource type="TileSet" id="TileSet_jnsj8"]
+tile_size = Vector2i(126, 126)
+physics_layer_0/collision_layer = 2
+physics_layer_0/collision_mask = 0
+sources/0 = SubResource("TileSetAtlasSource_63row")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sdx3d"]
+texture = ExtResource("9_y3oa2")
+texture_region_size = Vector2i(126, 126)
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-63, -63, 63, -63, 63, 63, -63, 63)
+0:0/0/custom_data_0 = "Coin"
+
+[sub_resource type="TileSet" id="TileSet_ynavl"]
+tile_size = Vector2i(126, 126)
+physics_layer_0/collision_layer = 4
+physics_layer_0/collision_mask = 0
+custom_data_layer_0/name = "PickupType"
+custom_data_layer_0/type = 4
+sources/0 = SubResource("TileSetAtlasSource_sdx3d")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_7t6so")
@@ -36,9 +102,15 @@ script = ExtResource("1_7t6so")
 tile_map_data = PackedByteArray("AAABAAMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAAEAAMAAAAAAAAAAAAFAAMAAAAAAAAAAAAGAAMAAAAAAAAAAAAHAAMAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAHAAQAAAAAAAAAAAAGAAQAAAAAAAAAAAAFAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAADAAQAAAAAAAAAAAACAAQAAAAAAAAAAAAJAAQAAAAAAAAAAAAKAAQAAAAAAAAAAAALAAQAAAAAAAAAAAAMAAQAAAAAAAAAAAAMAAMAAAAAAAAAAAALAAMAAAAAAAAAAAAKAAMAAAAAAAAAAAAJAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_7t6so")
 
+[node name="SpikeTileMap" type="TileMapLayer" parent="." groups=["Spikes"]]
+tile_set = SubResource("TileSet_jnsj8")
+
+[node name="PickupTilemap" type="TileMapLayer" parent="." groups=["Pickup"]]
+tile_set = SubResource("TileSet_ynavl")
+
 [node name="EntryDoor" parent="." instance=ExtResource("2_encki")]
-position = Vector2(69, 252)
+position = Vector2(64, 251)
 
 [node name="ExitDoor" parent="." instance=ExtResource("2_encki")]
-position = Vector2(1569, 252)
+position = Vector2(1575, 252)
 DoorType = 1

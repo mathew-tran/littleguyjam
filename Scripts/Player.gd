@@ -64,21 +64,6 @@ func _process(delta):
 			TongueEndRef.global_position = to_global($RayCast2D.target_position)
 			
 	
-			
-func _integrate_forces(state):
-	var bodies = get_colliding_bodies()
-	for body in bodies:
-		if body is TileMapLayer:
-			print(body.name)
-			var contact_point = state.get_contact_collider_position(0)
-			contact_point = Vector2(snappedi(contact_point.x, 126), snappedi(contact_point.y, 126))
-			var coords = body.local_to_map(body.to_local(contact_point))
-			var tile = body.get_cell_tile_data(coords)
-			if tile:
-				var tileData =  tile.get_custom_data("TileType")
-				if tileData == "Spike":
-					queue_free()
-	
 	
 func _physics_process(delta):
 	if CanMove():
@@ -142,18 +127,23 @@ func Die():
 	modulate = Color(0,0,0,0)
 	await get_tree().create_timer(.3).timeout	
 
-	print("Game Over")
+	get_tree().reload_current_scene()
 	
+func TakeDamage():
+	Die()
 
+	
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
-	return
-	print(body.name)
 	if body is TileMapLayer:
-		var coords = body.get_coords_for_body_rid(body_rid)
-		var tile = body.get_cell_tile_data(coords)
-		var tileData =  tile.get_custom_data("TileType")
-		if tileData == "Spike":
-			queue_free()
-	else:
-		print("hit")
-		print(body.name)
+		if body.is_in_group("Spikes"):
+			TakeDamage()
+
+func _on_pickup_detector_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
+	if body is TileMapLayer:
+		if body.is_in_group("Pickup"):
+			var coords =  body.get_coords_for_body_rid(body_rid)
+			var tile = body.get_cell_tile_data(coords)
+			if tile:
+				if tile.get_custom_data("PickupType") == "Coin":
+					body.set_cell(coords)
+					Finder.GetGame().AddPoints(100)

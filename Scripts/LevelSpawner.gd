@@ -3,7 +3,7 @@ extends Node2D
 var Rooms : Array[LevelBase]
 var RoomCount = 8
 
-var LevelClass = load("res://Scenes/Levels/LevelTest.tscn")
+var LevelClass = load("res://Scenes/Levels/Level1.tscn")
 func _ready() -> void:
 	Rooms.push_back(get_child(0))
 	get_child(0).OnExitDoorPassed.connect(OnDoorPassed)

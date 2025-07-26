@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsvajfvqo4iwf"]
+[gd_scene load_steps=7 format=3 uid="uid://dsvajfvqo4iwf"]
 
 [ext_resource type="Texture2D" uid="uid://b37giaqigvd08" path="res://Art/Player/PlayerHead.png" id="1_um8lo"]
 [ext_resource type="Script" uid="uid://dpktp6ibetl7v" path="res://Scripts/Player.gd" id="1_x3d5u"]
@@ -11,11 +11,15 @@ bounce = 0.4
 [sub_resource type="CircleShape2D" id="CircleShape2D_hnvup"]
 radius = 35.2278
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_j0pa4"]
+radius = 50.6952
+
 [node name="Player" type="RigidBody2D"]
 collision_mask = 3
 mass = 0.3
 physics_material_override = SubResource("PhysicsMaterial_4o3m0")
 gravity_scale = 2.0
+freeze_mode = 1
 contact_monitor = true
 max_contacts_reported = 100
 script = ExtResource("1_x3d5u")
@@ -46,4 +50,12 @@ one_shot = true
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.65, 0.65)
 
+[node name="PickupDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupDetector"]
+shape = SubResource("CircleShape2D_j0pa4")
+
 [connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
+[connection signal="body_shape_entered" from="PickupDetector" to="." method="_on_pickup_detector_body_shape_entered"]

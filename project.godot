@@ -15,6 +15,14 @@ run/main_scene="uid://dh8xyoa35lyqb"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Finder="*res://Scripts/Autoload/Finder.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+
 [input]
 
 Click={
@@ -48,3 +56,4 @@ Up={
 [layer_names]
 
 2d_physics/layer_2="SPIKE"
+2d_physics/layer_3="COINS"

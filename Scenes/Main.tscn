@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://dh8xyoa35lyqb"]
+[gd_scene load_steps=6 format=3 uid="uid://dh8xyoa35lyqb"]
 
 [ext_resource type="PackedScene" uid="uid://d27x3r18khlcl" path="res://Scenes/Levels/Level1.tscn" id="1_idj7w"]
 [ext_resource type="Script" uid="uid://csvx3f4sximyh" path="res://Scripts/LevelSpawner.gd" id="1_kln2b"]
 [ext_resource type="PackedScene" uid="uid://dsvajfvqo4iwf" path="res://Prefab/Player.tscn" id="1_r150o"]
+[ext_resource type="Script" uid="uid://db3peedshigyr" path="res://Scripts/Game.gd" id="1_rgh2o"]
+[ext_resource type="Script" uid="uid://bkeseubo5a3ff" path="res://Scripts/UI/PointsText.gd" id="5_pbw6q"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Game" type="Node2D" groups=["Game"]]
+script = ExtResource("1_rgh2o")
 
 [node name="LevelSpawner" type="Node2D" parent="."]
 script = ExtResource("1_kln2b")
@@ -14,3 +17,16 @@ position = Vector2(374, -126)
 
 [node name="Player" parent="." instance=ExtResource("1_r150o")]
 position = Vector2(422, 134)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Points" type="Label" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 49.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 20
+text = "01000"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_pbw6q")
