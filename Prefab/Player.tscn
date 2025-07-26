@@ -14,7 +14,7 @@ radius = 35.2278
 [sub_resource type="CircleShape2D" id="CircleShape2D_j0pa4"]
 radius = 50.6952
 
-[node name="Player" type="RigidBody2D"]
+[node name="Player" type="RigidBody2D" groups=["Player"]]
 collision_mask = 3
 mass = 0.3
 physics_material_override = SubResource("PhysicsMaterial_4o3m0")

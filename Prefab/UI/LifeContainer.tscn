@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://2xw7qtin2htg"]
+
+[ext_resource type="PackedScene" uid="uid://dktgmamalf3tk" path="res://Prefab/UI/LifeIcon.tscn" id="1_ma42s"]
+[ext_resource type="Script" uid="uid://duwhfb7lwi1iw" path="res://Scripts/UI/LifeContainer.gd" id="1_mrg06"]
+
+[node name="LifeContainer" type="HBoxContainer"]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_mrg06")
+
+[node name="LifeIcon" parent="." instance=ExtResource("1_ma42s")]
+layout_mode = 2
+
+[node name="LifeIcon2" parent="." instance=ExtResource("1_ma42s")]
+layout_mode = 2

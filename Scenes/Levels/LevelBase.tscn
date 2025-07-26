@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=4 uid="uid://digkimumsj2um"]
+[gd_scene load_steps=24 format=4 uid="uid://digkimumsj2um"]
 
 [ext_resource type="Script" uid="uid://bpsgu72xf2ecj" path="res://Scripts/LevelBase.gd" id="1_7t6so"]
 [ext_resource type="Texture2D" uid="uid://bply0hpapnoll" path="res://Art/Environment/Dirt.png" id="1_ami44"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dd3kldfhcbggp" path="res://Art/Environment/platform1.png" id="6_j6j3i"]
 [ext_resource type="Texture2D" uid="uid://7ft08iyg8e53" path="res://Art/Environment/platformbig.png" id="7_b072a"]
 [ext_resource type="Texture2D" uid="uid://dejt7hariylnc" path="res://Art/Environment/Coin.png" id="9_y3oa2"]
+[ext_resource type="PackedScene" uid="uid://6vyriwpgqtio" path="res://Prefab/CheckpointFlag.tscn" id="11_sdx3d"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_63row"]
 
@@ -114,3 +115,6 @@ position = Vector2(64, 251)
 [node name="ExitDoor" parent="." instance=ExtResource("2_encki")]
 position = Vector2(1575, 252)
 DoorType = 1
+
+[node name="Flag" parent="." instance=ExtResource("11_sdx3d")]
+position = Vector2(127, 176)

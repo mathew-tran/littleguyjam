@@ -57,3 +57,7 @@ Up={
 
 2d_physics/layer_2="SPIKE"
 2d_physics/layer_3="COINS"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0.16485, 0.114824, 0.439417, 1)

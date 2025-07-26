@@ -12,6 +12,7 @@ var TongueEndRef = null
 var bCanMove = true
 var bIsDead = false
 
+var bCanTakeDamage = true
 
 func _ready():
 	pass
@@ -25,6 +26,14 @@ func FreezeBody():
 	if HasTongue():
 		TongueEndRef.bEnabled = false
 
+func UnfreezeBody():
+	freeze = false
+	for child in get_children():
+		if child is RigidBody2D:
+			child.freeze = true
+			
+	if HasTongue():
+		TongueEndRef.bEnabled = true
 	
 func UpdateEyes(delta):
 	for eye in Eyes:
@@ -82,7 +91,7 @@ func Move(delta):
 		apply_impulse(Vector2.RIGHT * MoveSpeed * delta * multiplier)
 
 func CanUseTongue():
-	return $TongueCooldown.time_left == 0.0
+	return $TongueCooldown.time_left == 0.0 and bCanTakeDamage
 	
 func HasTongue():
 	return is_instance_valid(TongueEndRef)
@@ -121,16 +130,46 @@ func Die():
 		TongueEndRef.queue_free()
 		
 		
+	
+
+	get_tree().reload_current_scene()
+
+func Pop():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "scale", Vector2(2,2), .2)
 	await tween.finished
 	modulate = Color(0,0,0,0)
 	await get_tree().create_timer(.3).timeout	
-
-	get_tree().reload_current_scene()
+	
+func PopIn():
+	scale = Vector2.ZERO
+	angular_velocity = 0
+	linear_velocity = Vector2.ZERO
+	var tween = get_tree().create_tween()
+	modulate = Color.WHITE
+	tween.tween_property(self, "scale", Vector2(1,1), .2)
+	await tween.finished
+	
+	await get_tree().create_timer(.3).timeout	
+	
+func MovePlayer(pos):
+	bCanTakeDamage = false
+	if HasTongue():
+		TongueEndRef.queue_free()
+	FreezeBody()
+	await Pop()
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "global_position", pos, .3)
+	
+	await tween.finished
+	UnfreezeBody()
+	await PopIn()
+	
+	bCanTakeDamage = true
 	
 func TakeDamage():
-	Die()
+	if bCanTakeDamage:
+		Finder.GetGame().TakeDamage()
 
 	
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
