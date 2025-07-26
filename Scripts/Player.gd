@@ -93,9 +93,6 @@ func _input(event):
 	if CanMove() == false:
 		return
 		
-	if event.is_action_pressed("Detach") and CanUseTongue():
-		RevertTongue()
-		
 
 		
 func RevertTongue():

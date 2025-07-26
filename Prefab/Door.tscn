@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bh2ro0dap7bj"]
+
+[ext_resource type="Script" uid="uid://c7piuwhyvrf5a" path="res://Scripts/Door.gd" id="1_i2w2b"]
+[ext_resource type="Texture2D" uid="uid://dpnw1c1277t5q" path="res://Art/Environment/Door.png" id="1_megey"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i2w2b"]
+size = Vector2(126, 251)
+
+[node name="Door" type="Area2D"]
+script = ExtResource("1_i2w2b")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -63.0
+offset_top = -125.5
+offset_right = 63.0
+offset_bottom = 125.5
+texture = ExtResource("1_megey")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_i2w2b")
+
+[node name="SpawnPosition" type="Node2D" parent="."]
+position = Vector2(63, -250)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
