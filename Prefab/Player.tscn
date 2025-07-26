@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsvajfvqo4iwf"]
+
+[ext_resource type="Texture2D" uid="uid://b37giaqigvd08" path="res://Art/Player/PlayerHead.png" id="1_um8lo"]
+[ext_resource type="Script" uid="uid://dpktp6ibetl7v" path="res://Scripts/Player.gd" id="1_x3d5u"]
+[ext_resource type="Texture2D" uid="uid://dg3q6x45sxsm7" path="res://Art/Player/PlayerEye.png" id="3_j0pa4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4o3m0"]
+friction = 0.8
+bounce = 0.4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hnvup"]
+radius = 35.2278
+
+[node name="Player" type="RigidBody2D"]
+mass = 0.3
+physics_material_override = SubResource("PhysicsMaterial_4o3m0")
+gravity_scale = 2.0
+script = ExtResource("1_x3d5u")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -63.0
+offset_top = -63.0
+offset_right = 63.0
+offset_bottom = 63.0
+texture = ExtResource("1_um8lo")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+offset_left = -47.0
+offset_top = -71.0
+offset_right = 79.0
+offset_bottom = 55.0
+texture = ExtResource("3_j0pa4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hnvup")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+
+[node name="TongueCooldown" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.65, 0.65)
