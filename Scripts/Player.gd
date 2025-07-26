@@ -62,6 +62,23 @@ func _process(delta):
 			TongueEndRef.EmitParticle()
 		else:
 			TongueEndRef.global_position = to_global($RayCast2D.target_position)
+			
+	
+			
+func _integrate_forces(state):
+	var bodies = get_colliding_bodies()
+	for body in bodies:
+		if body is TileMapLayer:
+			print(body.name)
+			var contact_point = state.get_contact_collider_position(0)
+			contact_point = Vector2(snappedi(contact_point.x, 126), snappedi(contact_point.y, 126))
+			var coords = body.local_to_map(body.to_local(contact_point))
+			var tile = body.get_cell_tile_data(coords)
+			if tile:
+				var tileData =  tile.get_custom_data("TileType")
+				if tileData == "Spike":
+					queue_free()
+	
 	
 func _physics_process(delta):
 	if CanMove():
@@ -127,3 +144,16 @@ func Die():
 
 	print("Game Over")
 	
+
+func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+	return
+	print(body.name)
+	if body is TileMapLayer:
+		var coords = body.get_coords_for_body_rid(body_rid)
+		var tile = body.get_cell_tile_data(coords)
+		var tileData =  tile.get_custom_data("TileType")
+		if tileData == "Spike":
+			queue_free()
+	else:
+		print("hit")
+		print(body.name)

@@ -34,6 +34,9 @@ func GetSurface():
 func _process(delta):
 	if bEnabled == false:
 		return
+	if is_instance_valid(OwnerObject) == false:
+		return
+		
 	$Line2D.points[1] = to_local(OwnerObject.global_position)
 	if bIsKilled:
 		Progress += delta * 40
@@ -59,6 +62,8 @@ func EmitParticle():
 func _physics_process(delta):
 	if bEnabled == false:
 		return
+	if is_instance_valid(OwnerObject) == false:
+		return
 	if $PinJoint2D.node_b != OwnerObject.get_path():
 		return
 		
@@ -76,6 +81,8 @@ func _physics_process(delta):
 	
 	
 func IncreaseTongueLength(amount):
+	if is_instance_valid(OwnerObject) == false:
+		return
 	if global_position.distance_to(OwnerObject.global_position) >= MaxLength:
 		return
 	$PinJoint2D.node_b = get_path()
@@ -85,6 +92,8 @@ func IncreaseTongueLength(amount):
 	$PinJoint2D.node_b = OwnerObject.get_path()
 	
 func DecreaseTongueLength(amount):
+	if is_instance_valid(OwnerObject) == false:
+		return
 	if global_position.distance_to(OwnerObject.global_position) <= 100:
 		return
 	$PinJoint2D.node_b = get_path()

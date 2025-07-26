@@ -12,9 +12,12 @@ bounce = 0.4
 radius = 35.2278
 
 [node name="Player" type="RigidBody2D"]
+collision_mask = 3
 mass = 0.3
 physics_material_override = SubResource("PhysicsMaterial_4o3m0")
 gravity_scale = 2.0
+contact_monitor = true
+max_contacts_reported = 100
 script = ExtResource("1_x3d5u")
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -42,3 +45,5 @@ one_shot = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.65, 0.65)
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

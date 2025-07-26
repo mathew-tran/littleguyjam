@@ -9,8 +9,8 @@
 [node name="LevelSpawner" type="Node2D" parent="."]
 script = ExtResource("1_kln2b")
 
-[node name="Node2D2" parent="LevelSpawner" instance=ExtResource("1_idj7w")]
-position = Vector2(0, 0)
+[node name="Node2D" parent="LevelSpawner" instance=ExtResource("1_idj7w")]
+position = Vector2(374, -126)
 
 [node name="Player" parent="." instance=ExtResource("1_r150o")]
 position = Vector2(422, 134)
