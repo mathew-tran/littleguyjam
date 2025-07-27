@@ -4,8 +4,8 @@ class_name Player
 
 var Eyes = []
 
-var MoveSpeed = 600
-var MaxLength = 600
+var MoveSpeed = 800
+var MaxLength = 500
 @onready var TongueEndClass = preload("res://Prefab/TongueEnd.tscn")
 var TongueEndRef = null
 
@@ -49,6 +49,18 @@ func _process(delta):
 	if Input.is_action_just_released("Click"):
 		RevertTongue()
 		
+	if Input.is_action_just_pressed("Pop"):
+		if $Timer.time_left == 0.0:
+			$Timer.start()
+	if Input.is_action_just_released("Pop"):
+		$Timer.stop()
+		
+	if $Timer.time_left != 0.0:
+		$ProgressBar.value = 1- (float($Timer.time_left) / float($Timer.wait_time))
+		$ProgressBar.visible = true
+	else:
+		$ProgressBar.visible = false
+		
 	if Input.is_action_pressed("Click") and CanUseTongue() and HasTongue() == false:
 		$TongueCooldown.start()
 		$AudioStreamPlayer2D.play()
@@ -63,7 +75,8 @@ func _process(delta):
 		TongueEndRef.MaxLength = MaxLength
 		get_parent().add_child(TongueEndRef)
 		
-		if $RayCast2D.is_colliding():			
+		
+		if $RayCast2D.is_colliding():	
 			TongueEndRef.global_position = $RayCast2D.get_collision_point()
 			TongueEndRef.get_node("PinJoint2D").node_b = get_path()
 			TongueEndRef.SetupInitialTracking($RayCast2D.get_collision_point(), $RayCast2D.get_collider().get_path())
@@ -178,11 +191,9 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 
 func _on_pickup_detector_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer:
-		if body.is_in_group("Pickup"):
-			var coords =  body.get_coords_for_body_rid(body_rid)
-			var tile = body.get_cell_tile_data(coords)
-			if tile:
-				if tile.get_custom_data("PickupType") == "Coin":
-					body.set_cell(coords)
-					Finder.GetGame().AddPoints(100)
-					Jukebox.PlayCollectSFX()
+		Finder.GetGame().AttemptCoinPickup(body, body_rid)
+
+
+func _on_timer_timeout() -> void:
+	TakeDamage()
+	pass # Replace with function body.

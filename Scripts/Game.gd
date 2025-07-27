@@ -45,3 +45,16 @@ func TakeDamage():
 		OnHealthUpdate.emit()
 func SetCheckpointPosition(pos):
 	LastCheckPointPosition = pos
+
+func IsPickupLayer(body):
+	return body.is_in_group("Pickup")
+func AttemptCoinPickup(body, body_rid):
+	if body is TileMapLayer:
+		if body.is_in_group("Pickup"):
+			var coords =  body.get_coords_for_body_rid(body_rid)
+			var tile = body.get_cell_tile_data(coords)
+			if tile:
+				if tile.get_custom_data("PickupType") == "Coin":
+					body.set_cell(coords)
+					Finder.GetGame().AddPoints(100)
+					Jukebox.PlayCollectSFX()

@@ -6,7 +6,7 @@ var bIsKilled = false
 
 var Progress = 0.0
 
-var PullSpeed = 1000
+var PullSpeed = 600
 
 var bInitialImpulse = false
 var MaxLength = 200
@@ -21,7 +21,7 @@ func SetupInitialTracking(trackedPosition, connectionJointPath):
 	CollisionPosition = trackedPosition
 	LocalOffset = GetSurface().to_local(CollisionPosition)
 	LocalRotationOffset = global_rotation - GetSurface().global_rotation
-	Finder.GetGame().Slomo(.3, .1, .001)
+	Finder.GetGame().Slomo(.8, .1, .001)
 	await get_tree().create_timer(.1).timeout
 	$AudioStreamPlayer2D.play()
 	
