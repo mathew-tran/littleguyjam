@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://6vyriwpgqtio"]
+[gd_scene load_steps=9 format=3 uid="uid://6vyriwpgqtio"]
 
 [ext_resource type="Script" uid="uid://liiqcwaesoh5" path="res://Scripts/Checkpoint.gd" id="1_mvudn"]
 [ext_resource type="Texture2D" uid="uid://b4d2k6j3jxlsu" path="res://Art/Environment/Flag.png" id="1_n72wl"]
 [ext_resource type="Texture2D" uid="uid://yhsr5nnb03cj" path="res://Art/Environment/FlagPole.png" id="2_mvudn"]
+[ext_resource type="AudioStream" uid="uid://dej7m40eeunfu" path="res://Audio/SFX/Checkpoint.wav" id="4_m0lhp"]
 
 [sub_resource type="Animation" id="Animation_n72wl"]
 resource_name = "anim"
@@ -72,5 +73,9 @@ shape = SubResource("RectangleShape2D_m0lhp")
 
 [node name="SpawnPosition" type="Node2D" parent="."]
 position = Vector2(21, 97)
+
+[node name="CheckPointSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_m0lhp")
+volume_db = 10.0
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

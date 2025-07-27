@@ -16,3 +16,5 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		$AnimationPlayer.play("anim")
 		Finder.GetGame().SetCheckpointPosition($SpawnPosition.global_position)
 		Finder.GetGame().AddPoints(500)
+		$CheckPointSFX.play()
+		Helper.CreateText(global_position, "CHECKPOINT!", PopupText.POPUP_TYPE.NORMAL)

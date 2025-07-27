@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cbhkwregsnqqt"]
+
+[ext_resource type="AudioStream" uid="uid://8cfayrxg6b2c" path="res://Audio/Music/littlegujaml1 (1).ogg" id="1_mroas"]
+[ext_resource type="Script" uid="uid://ddsmci8t6ol2u" path="res://Scripts/Autoload/Jukebox.gd" id="2_uyjr1"]
+[ext_resource type="AudioStream" uid="uid://b8bph5etci5rs" path="res://Audio/SFX/collect.wav" id="3_e0f6t"]
+[ext_resource type="AudioStream" uid="uid://bgomnqwn6cg8u" path="res://Audio/SFX/littleguyjam-gameover (1).ogg" id="4_25a18"]
+
+[node name="Node2D" type="AudioStreamPlayer"]
+stream = ExtResource("1_mroas")
+volume_db = -30.0
+script = ExtResource("2_uyjr1")
+
+[node name="SFX" type="AudioStreamPlayer2D" parent="."]
+
+[node name="CollectSFX" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_e0f6t")
+
+[node name="DeadMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_25a18")

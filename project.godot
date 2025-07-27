@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Finder="*res://Scripts/Autoload/Finder.gd"
+Jukebox="*res://Prefab/Autoload/Jukebox.tscn"
+Helper="*res://Scripts/Autoload/Helper.gd"
 
 [display]
 

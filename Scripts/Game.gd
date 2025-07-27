@@ -10,18 +10,36 @@ var LastCheckPointPosition = Vector2.ZERO
 signal OnPointAdded(amount)
 signal OnHealthUpdate
 signal OnHealthMaxUpdate
+signal OnGameOver
 
 func _ready() -> void:
 	OnHealthMaxUpdate.emit()
+	Jukebox.PlayMusic(JukeboxPlayer.MUSIC_TYPE.LEVEL_1)
+	
+func Slomo(amount, time, recoverTime = .1):
+	if Engine.time_scale != 1:
+		return
+	Engine.time_scale = amount
+	await get_tree().create_timer(time).timeout
+	var tween = get_tree().create_tween()
+	tween.tween_property(Engine, "time_scale", 1, recoverTime)
+	await tween.finished
+	Engine.time_scale = 1
 	
 func AddPoints(amount):
 	Points += amount
 	OnPointAdded.emit(Points)
+	var pointText = "+{points}".format({
+		"points" : str(amount)
+	})
+	Helper.CreateText(Finder.GetPlayer().global_position, pointText, PopupText.POPUP_TYPE.NORMAL)
 	
 func TakeDamage():
 	Health -= 1
 	if Health <= 0:
-		get_tree().reload_current_scene()
+		Finder.GetPlayer().Die()
+		Jukebox.PlayMusic(JukeboxPlayer.MUSIC_TYPE.GAME_OVER)
+		OnGameOver.emit()
 	else:
 		Finder.GetPlayer().MovePlayer(LastCheckPointPosition)
 		OnHealthUpdate.emit()

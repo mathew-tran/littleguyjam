@@ -21,6 +21,11 @@ func SetupInitialTracking(trackedPosition, connectionJointPath):
 	CollisionPosition = trackedPosition
 	LocalOffset = GetSurface().to_local(CollisionPosition)
 	LocalRotationOffset = global_rotation - GetSurface().global_rotation
+	Finder.GetGame().Slomo(.3, .1, .001)
+	await get_tree().create_timer(.1).timeout
+	$AudioStreamPlayer2D.play()
+	
+	
 	
 func UpdateTrackingPosition():
 	var scaledOffset = LocalOffset
@@ -106,6 +111,7 @@ func _on_kill_timer_timeout():
 	Kill()
 
 func Kill():
+	Jukebox.PlaySFX(load("res://Audio/SFX/retract.wav"), Finder.GetPlayer().global_position)
 	if bIsKilled:
 		return
 	bIsKilled = true

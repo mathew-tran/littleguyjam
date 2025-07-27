@@ -51,6 +51,7 @@ func _process(delta):
 		
 	if Input.is_action_pressed("Click") and CanUseTongue() and HasTongue() == false:
 		$TongueCooldown.start()
+		$AudioStreamPlayer2D.play()
 		RevertTongue()
 		
 		var direction = to_local(get_global_mouse_position()).normalized()
@@ -119,32 +120,26 @@ func _on_tongue_cooldown_timeout():
 		RevertTongue()
 		$RayCast2D.enabled = true
 
-func Die():
-	if bIsDead:
-		return
-		
-	bIsDead = true
-	
+
+func Pop():
 	FreezeBody()
 	if HasTongue():
 		TongueEndRef.queue_free()
-		
-		
-	
-
-	get_tree().reload_current_scene()
-
-func Pop():
 	var tween = get_tree().create_tween()
+	$CPUParticles2D.restart()
+	tween.tween_property(self, "modulate", Color.RED, .1)
 	tween.tween_property(self, "scale", Vector2(2,2), .2)
+
 	await tween.finished
 	modulate = Color(0,0,0,0)
 	await get_tree().create_timer(.3).timeout	
+
 	
 func PopIn():
 	scale = Vector2.ZERO
 	angular_velocity = 0
 	linear_velocity = Vector2.ZERO
+	$CPUParticles2D.restart()
 	var tween = get_tree().create_tween()
 	modulate = Color.WHITE
 	tween.tween_property(self, "scale", Vector2(1,1), .2)
@@ -152,11 +147,13 @@ func PopIn():
 	
 	await get_tree().create_timer(.3).timeout	
 	
-func MovePlayer(pos):
+func Die():
 	bCanTakeDamage = false
-	if HasTongue():
-		TongueEndRef.queue_free()
-	FreezeBody()
+	Pop()
+	
+func MovePlayer(pos):
+	Finder.GetGame().Slomo(.3, .1, .001)
+	bCanTakeDamage = false
 	await Pop()
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "global_position", pos, .3)
@@ -175,7 +172,9 @@ func TakeDamage():
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer:
 		if body.is_in_group("Spikes"):
+			Jukebox.PlaySFX(load("res://Audio/SFX/death.wav"), Finder.GetPlayer().global_position)
 			TakeDamage()
+			
 
 func _on_pickup_detector_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer:
@@ -186,3 +185,4 @@ func _on_pickup_detector_body_shape_entered(body_rid: RID, body: Node2D, body_sh
 				if tile.get_custom_data("PickupType") == "Coin":
 					body.set_cell(coords)
 					Finder.GetGame().AddPoints(100)
+					Jukebox.PlayCollectSFX()
