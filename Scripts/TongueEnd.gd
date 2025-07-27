@@ -1,4 +1,4 @@
-extends RigidBody2D
+extends StaticBody2D
 
 var OwnerObject = null
 
@@ -23,12 +23,8 @@ func SetupInitialTracking(trackedPosition, connectionJointPath):
 	LocalOffset = GetSurface().to_local(CollisionPosition)
 	LocalRotationOffset = global_rotation - GetSurface().global_rotation
 	Finder.GetGame().Slomo(.8, .1, .001)
-	print("NODE:" +  str($ConnectionJoint.node_b))
-	print("PIN NODE:" +  str($PinJoint2D.node_b))
-	print("OwnerObject" + str(OwnerObject.name))
 	await get_tree().create_timer(.1).timeout
 	$AudioStreamPlayer2D.play()
-	print("STARTED" + name)
 	
 	
 	
@@ -45,14 +41,8 @@ func _process(delta):
 	if bEnabled == false:
 		return
 	if is_instance_valid(OwnerObject) == false:
-		print("OWNER OBJECT BROKEN")
 		return
 	
-	print("B IS KILLED: " + str(bIsKilled))
-	print("PINJOINT 2D NODE B" + str($PinJoint2D.node_b))
-	print("ConnectionJoint 2D NODE B" + str($ConnectionJoint.node_b))
-	print("OWNER OBJECT POS:" + str(OwnerObject.global_position))
-	print("OWNER OBJECT POS:" + str(OwnerObject.scale))
 	$Line2D.points[1] = to_local(OwnerObject.global_position)
 	if bIsKilled:
 		Progress += delta * 40
@@ -81,7 +71,9 @@ func _physics_process(delta):
 	if is_instance_valid(OwnerObject) == false:
 		return
 		
-
+	if global_position.distance_to(OwnerObject.global_position) >= MaxLength + 100:
+		Kill()
+		return
 	if $PinJoint2D.node_b != OwnerObject.get_path():
 		return
 		
@@ -103,6 +95,7 @@ func IncreaseTongueLength(amount):
 		return
 	if global_position.distance_to(OwnerObject.global_position) >= MaxLength:
 		return
+
 	$PinJoint2D.node_b = get_path()
 	var direction = (OwnerObject.global_position - global_position).normalized()
 	

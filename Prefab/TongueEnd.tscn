@@ -11,10 +11,9 @@
 offsets = PackedFloat32Array(0.0058309, 1)
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[node name="TongueEnd" type="RigidBody2D"]
+[node name="TongueEnd" type="StaticBody2D"]
 collision_layer = 0
 collision_mask = 0
-gravity_scale = 0.0
 script = ExtResource("1_37q28")
 
 [node name="Sprite2D" type="TextureRect" parent="."]
@@ -30,7 +29,6 @@ shape = SubResource("CircleShape2D_lhqrs")
 [node name="PinJoint2D" type="PinJoint2D" parent="."]
 node_a = NodePath("..")
 bias = 0.9
-softness = 16.0
 
 [node name="Line2D" type="Line2D" parent="."]
 points = PackedVector2Array(0, 0, 0, -10)
@@ -41,7 +39,7 @@ one_shot = true
 
 [node name="ConnectionJoint" type="PinJoint2D" parent="."]
 node_a = NodePath("..")
-angular_limit_enabled = true
+bias = 0.9
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
 amount = 20

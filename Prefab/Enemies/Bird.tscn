@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://eygrdveujgmg"]
+[gd_scene load_steps=5 format=3 uid="uid://bvkl2ly88t26g"]
 
-[ext_resource type="Script" uid="uid://yeuk3wnyvdn4" path="res://Scripts/Enemies/Enemy.gd" id="1_khoj4"]
-[ext_resource type="Texture2D" uid="uid://c76o6at5s2uue" path="res://Art/Enemies/Ant.png" id="1_tof7g"]
+[ext_resource type="Script" uid="uid://yeuk3wnyvdn4" path="res://Scripts/Enemies/Enemy.gd" id="1_88hxf"]
+[ext_resource type="Texture2D" uid="uid://bqkn4ncx7tga2" path="res://Art/Enemies/Bird.png" id="2_88hxf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tof7g"]
 size = Vector2(178, 89)
@@ -9,12 +9,12 @@ size = Vector2(178, 89)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_khoj4"]
 size = Vector2(29.5, 47.5)
 
-[node name="Ant" type="CharacterBody2D"]
+[node name="Bird" type="CharacterBody2D"]
 collision_mask = 8
 motion_mode = 1
 platform_on_leave = 2
-script = ExtResource("1_khoj4")
-Gravity = 400
+script = ExtResource("1_88hxf")
+MoveSpeed = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-8, 49.5)
@@ -26,7 +26,7 @@ offset_top = -148.5
 offset_right = 133.5
 offset_bottom = 104.5
 pivot_offset = Vector2(126.5, 125.5)
-texture = ExtResource("1_tof7g")
+texture = ExtResource("2_88hxf")
 
 [node name="Area2D" type="Area2D" parent="CollisionShape2D/TextureRect"]
 position = Vector2(217.5, 114.5)

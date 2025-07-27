@@ -1,12 +1,16 @@
 extends CharacterBody2D
 
+class_name Enemy
+
 enum ENEMY_STATE {
 	MOVE_LEFT,
 	MOVE_RIGHT
 }
 
 var CurrentState = ENEMY_STATE.MOVE_RIGHT
-var MoveSpeed = 200
+@export var MoveSpeed = 200
+
+@export var Gravity = 0
 
 @onready var Raycast = $CollisionShape2D/TextureRect/RayCast2D
 			
@@ -19,7 +23,7 @@ func _physics_process(delta: float) -> void:
 			newVelocity.x = -MoveSpeed
 		ENEMY_STATE.MOVE_RIGHT:
 			newVelocity.x = MoveSpeed
-	newVelocity.y = 500
+	newVelocity.y = Gravity
 	velocity = newVelocity
 	move_and_slide()
 

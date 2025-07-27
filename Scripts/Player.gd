@@ -181,12 +181,12 @@ func MovePlayer(pos):
 func TakeDamage():
 	if bCanTakeDamage:
 		Finder.GetGame().TakeDamage()
+		Jukebox.PlaySFX(load("res://Audio/SFX/death.wav"), Finder.GetPlayer().global_position)
 
 	
 func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer:
 		if body.is_in_group("Spikes"):
-			Jukebox.PlaySFX(load("res://Audio/SFX/death.wav"), Finder.GetPlayer().global_position)
 			TakeDamage()
 			
 

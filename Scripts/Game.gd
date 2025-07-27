@@ -36,13 +36,13 @@ func AddPoints(amount):
 	
 func TakeDamage():
 	Health -= 1
+	OnHealthUpdate.emit()
 	if Health <= 0:
 		Finder.GetPlayer().Die()
 		Jukebox.PlayMusic(JukeboxPlayer.MUSIC_TYPE.GAME_OVER)
 		OnGameOver.emit()
 	else:
 		Finder.GetPlayer().MovePlayer(LastCheckPointPosition)
-		OnHealthUpdate.emit()
 func SetCheckpointPosition(pos):
 	LastCheckPointPosition = pos
 
