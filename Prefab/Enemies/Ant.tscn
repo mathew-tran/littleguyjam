@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://eygrdveujgmg"]
+
+[ext_resource type="Script" uid="uid://wsktoff705m5" path="res://Scripts/Enemies/Ant.gd" id="1_khoj4"]
+[ext_resource type="Texture2D" uid="uid://c76o6at5s2uue" path="res://Art/Enemies/Ant.png" id="1_tof7g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tof7g"]
+size = Vector2(178, 89)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_khoj4"]
+size = Vector2(29.5, 47.5)
+
+[node name="Ant" type="CharacterBody2D"]
+collision_mask = 8
+motion_mode = 1
+platform_on_leave = 2
+script = ExtResource("1_khoj4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-8, 49.5)
+shape = SubResource("RectangleShape2D_tof7g")
+
+[node name="TextureRect" type="TextureRect" parent="CollisionShape2D"]
+offset_left = -119.5
+offset_top = -148.5
+offset_right = 133.5
+offset_bottom = 104.5
+pivot_offset = Vector2(126.5, 125.5)
+texture = ExtResource("1_tof7g")
+
+[node name="Area2D" type="Area2D" parent="CollisionShape2D/TextureRect"]
+position = Vector2(217.5, 114.5)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollisionShape2D/TextureRect/Area2D"]
+position = Vector2(4.75, 13.75)
+shape = SubResource("RectangleShape2D_khoj4")
+
+[node name="RayCast2D" type="RayCast2D" parent="CollisionShape2D/TextureRect"]
+position = Vector2(222.5, 126.5)
+target_position = Vector2(50, 0)
+collision_mask = 8
+
+[connection signal="body_entered" from="CollisionShape2D/TextureRect/Area2D" to="." method="_on_area_2d_body_entered"]

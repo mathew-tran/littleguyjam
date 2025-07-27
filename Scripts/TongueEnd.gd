@@ -1,4 +1,4 @@
-extends StaticBody2D
+extends RigidBody2D
 
 var OwnerObject = null
 
@@ -18,12 +18,17 @@ var LocalRotationOffset : float
 
 func SetupInitialTracking(trackedPosition, connectionJointPath):
 	$ConnectionJoint.node_b = connectionJointPath
+	
 	CollisionPosition = trackedPosition
 	LocalOffset = GetSurface().to_local(CollisionPosition)
 	LocalRotationOffset = global_rotation - GetSurface().global_rotation
 	Finder.GetGame().Slomo(.8, .1, .001)
+	print("NODE:" +  str($ConnectionJoint.node_b))
+	print("PIN NODE:" +  str($PinJoint2D.node_b))
+	print("OwnerObject" + str(OwnerObject.name))
 	await get_tree().create_timer(.1).timeout
 	$AudioStreamPlayer2D.play()
+	print("STARTED" + name)
 	
 	
 	
@@ -40,17 +45,23 @@ func _process(delta):
 	if bEnabled == false:
 		return
 	if is_instance_valid(OwnerObject) == false:
+		print("OWNER OBJECT BROKEN")
 		return
-		
+	
+	print("B IS KILLED: " + str(bIsKilled))
+	print("PINJOINT 2D NODE B" + str($PinJoint2D.node_b))
+	print("ConnectionJoint 2D NODE B" + str($ConnectionJoint.node_b))
+	print("OWNER OBJECT POS:" + str(OwnerObject.global_position))
+	print("OWNER OBJECT POS:" + str(OwnerObject.scale))
 	$Line2D.points[1] = to_local(OwnerObject.global_position)
 	if bIsKilled:
 		Progress += delta * 40
-		$Line2D.points[0] = to_local(lerp(self.global_position, OwnerObject.global_position, Progress))
+		$Line2D.points[0] = to_local(lerp(global_position, OwnerObject.global_position, Progress))
 		$Sprite2D.visible = false
 		if Progress >= 1:
 			queue_free()
 	else:
-		$Line2D.points[0] = to_local(self.global_position)
+		$Line2D.points[0] = to_local(global_position)
 		if $PinJoint2D.node_b != OwnerObject.get_path() or get_node_or_null($ConnectionJoint.node_b) == null:
 			if $KillTimer.time_left == 0.0:
 				$KillTimer.start()
@@ -69,6 +80,8 @@ func _physics_process(delta):
 		return
 	if is_instance_valid(OwnerObject) == false:
 		return
+		
+
 	if $PinJoint2D.node_b != OwnerObject.get_path():
 		return
 		
@@ -92,6 +105,7 @@ func IncreaseTongueLength(amount):
 		return
 	$PinJoint2D.node_b = get_path()
 	var direction = (OwnerObject.global_position - global_position).normalized()
+	
 	OwnerObject.global_position += direction * 20
 	bInitialImpulse = false
 	$PinJoint2D.node_b = OwnerObject.get_path()

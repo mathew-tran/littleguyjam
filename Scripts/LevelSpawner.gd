@@ -16,7 +16,7 @@ func SpawnNextDoor():
 		room.queue_free()
 		print("room removed")
 	
-	get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.1).timeout
 	var instance = LevelClass.instantiate() as LevelBase
 	instance.global_position = Rooms.back().GetExitDoor().GetSpawnPosition()
 	

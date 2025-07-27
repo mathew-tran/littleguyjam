@@ -23,6 +23,7 @@ position = Vector2(374, -126)
 
 [node name="Player" parent="." instance=ExtResource("1_r150o")]
 position = Vector2(422, 134)
+disable_mode = 2
 
 [node name="Effects" type="Node2D" parent="." groups=["Effects"]]
 

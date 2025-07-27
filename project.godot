@@ -64,6 +64,11 @@ Pop={
 
 2d_physics/layer_2="SPIKE"
 2d_physics/layer_3="COINS"
+2d_physics/layer_4="TERRAIN"
+
+[physics]
+
+2d/physics_engine="GodotPhysics2D"
 
 [rendering]
 
