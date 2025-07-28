@@ -34,6 +34,12 @@ func AddPoints(amount):
 	})
 	Helper.CreateText(Finder.GetPlayer().global_position, pointText, PopupText.POPUP_TYPE.NORMAL)
 	
+func Heal():
+	Health += 1
+	if Health > MaxHealth:
+		Health = MaxHealth
+	OnHealthUpdate.emit()
+	
 func TakeDamage():
 	Health -= 1
 	OnHealthUpdate.emit()

@@ -15,7 +15,9 @@ var bIsDead = false
 var bCanTakeDamage = true
 
 func _ready():
-	pass
+	ChangeMouth(false)
+	Eyes.append($EyeLeft)
+	Eyes.append($EyeRight)
 
 func FreezeBody():
 	freeze = true
@@ -75,7 +77,7 @@ func _process(delta):
 		TongueEndRef.MaxLength = MaxLength
 		
 		
-		
+		ChangeMouth(true)
 		if $RayCast2D.is_colliding():	
 			TongueEndRef.global_position = $RayCast2D.get_collision_point()
 			TongueEndRef.get_node("PinJoint2D").node_b = get_path()
@@ -120,6 +122,11 @@ func _input(event):
 		return
 		
 
+func ChangeMouth(bIsUsed):
+	if bIsUsed:
+		$Mouth.texture = load("res://Art/Player/Mouth.png")
+	else:
+		$Mouth.texture = load("res://Art/Player/ClosedMouth.png")
 		
 func RevertTongue():
 	$RayCast2D.target_position = Vector2.ZERO
@@ -127,6 +134,7 @@ func RevertTongue():
 	$RayCast2D.force_raycast_update()
 	if is_instance_valid(TongueEndRef):
 		TongueEndRef.Kill()
+	ChangeMouth(false)
 
 
 func _on_tongue_cooldown_timeout():

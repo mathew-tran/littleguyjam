@@ -5,6 +5,7 @@ enum FLAG_STATE {
 	RAISED
 }
 
+signal OnFlagRaised
 var FlagState = FLAG_STATE.NOT_RAISED
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
@@ -18,3 +19,5 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		Finder.GetGame().AddPoints(500)
 		$CheckPointSFX.play()
 		Helper.CreateText(global_position, "CHECKPOINT!", PopupText.POPUP_TYPE.NORMAL)
+		Finder.GetGame().Heal()
+		OnFlagRaised.emit()

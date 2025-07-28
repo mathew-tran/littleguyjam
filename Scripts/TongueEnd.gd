@@ -57,9 +57,10 @@ func _process(delta):
 				$KillTimer.start()
 				$Line2D.width *= .5
 		else:
-			$Line2D.default_color = Color.RED
 			$Sprite2D.modulate = Color.RED
 			UpdateTrackingPosition()
+			var lengthRatio = float(global_position.distance_to(OwnerObject.global_position)) / float(MaxLength)
+			$Line2D.default_color = lerp(Color.ORANGE, Color.RED, lengthRatio)
 	
 func EmitParticle():
 	$CPUParticles2D.emitting = true
@@ -71,6 +72,7 @@ func _physics_process(delta):
 	if is_instance_valid(OwnerObject) == false:
 		return
 		
+
 	if global_position.distance_to(OwnerObject.global_position) >= MaxLength + 100:
 		Kill()
 		return

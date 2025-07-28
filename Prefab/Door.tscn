@@ -23,4 +23,10 @@ shape = SubResource("RectangleShape2D_i2w2b")
 [node name="SpawnPosition" type="Node2D" parent="."]
 position = Vector2(55, -250)
 
+[node name="DrawTile" type="Node2D" parent="."]
+position = Vector2(0, -64)
+
+[node name="DrawTile2" type="Node2D" parent="."]
+position = Vector2(1, 72)
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

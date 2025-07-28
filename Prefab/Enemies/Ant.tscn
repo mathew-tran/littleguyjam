@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://eygrdveujgmg"]
+[gd_scene load_steps=6 format=3 uid="uid://eygrdveujgmg"]
 
 [ext_resource type="Script" uid="uid://yeuk3wnyvdn4" path="res://Scripts/Enemies/Enemy.gd" id="1_khoj4"]
 [ext_resource type="Texture2D" uid="uid://c76o6at5s2uue" path="res://Art/Enemies/Ant.png" id="1_tof7g"]
+[ext_resource type="AudioStream" uid="uid://ct85rmxxos31c" path="res://Audio/SFX/ant-1.wav" id="3_ivbci"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tof7g"]
 size = Vector2(178, 89)
@@ -41,4 +42,12 @@ position = Vector2(222.5, 126.5)
 target_position = Vector2(50, 0)
 collision_mask = 8
 
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_ivbci")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
 [connection signal="body_entered" from="CollisionShape2D/TextureRect/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

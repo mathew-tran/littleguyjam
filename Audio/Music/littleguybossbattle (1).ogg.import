@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://b2fcp18y8hkyo"
+path="res://.godot/imported/littleguybossbattle (1).ogg-c43bb4ee6902cc8bb2be0f84bb0237ff.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/Music/littleguybossbattle (1).ogg"
+dest_files=["res://.godot/imported/littleguybossbattle (1).ogg-c43bb4ee6902cc8bb2be0f84bb0237ff.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

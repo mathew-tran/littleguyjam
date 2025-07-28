@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsvajfvqo4iwf"]
+[gd_scene load_steps=10 format=3 uid="uid://dsvajfvqo4iwf"]
 
 [ext_resource type="Texture2D" uid="uid://b37giaqigvd08" path="res://Art/Player/PlayerHead.png" id="1_um8lo"]
 [ext_resource type="Script" uid="uid://dpktp6ibetl7v" path="res://Scripts/Player.gd" id="1_x3d5u"]
 [ext_resource type="Texture2D" uid="uid://ddmwp4rvin4ic" path="res://Art/Particle/BasicParticle.png" id="2_qe6vn"]
 [ext_resource type="Texture2D" uid="uid://dg3q6x45sxsm7" path="res://Art/Player/PlayerEye.png" id="3_j0pa4"]
 [ext_resource type="AudioStream" uid="uid://38aah4d76l80" path="res://Audio/SFX/littleguyshoot.wav" id="4_ec3bh"]
+[ext_resource type="Texture2D" uid="uid://bwxp8txwx24ta" path="res://Art/Player/Mouth.png" id="5_lb1et"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4o3m0"]
 friction = 0.8
@@ -42,12 +43,23 @@ offset_right = 63.0
 offset_bottom = 63.0
 texture = ExtResource("1_um8lo")
 
-[node name="TextureRect2" type="TextureRect" parent="."]
-offset_left = -47.0
-offset_top = -71.0
-offset_right = 79.0
-offset_bottom = 55.0
+[node name="EyeLeft" type="Sprite2D" parent="."]
+position = Vector2(-18, -9)
 texture = ExtResource("3_j0pa4")
+
+[node name="EyeRight" type="Sprite2D" parent="."]
+position = Vector2(21, -9)
+texture = ExtResource("3_j0pa4")
+
+[node name="Mouth" type="TextureRect" parent="."]
+offset_left = -10.0
+offset_top = -7.0
+offset_right = 30.0
+offset_bottom = 33.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_lb1et")
+expand_mode = 4
+stretch_mode = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_hnvup")

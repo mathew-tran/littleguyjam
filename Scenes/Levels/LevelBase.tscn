@@ -15,6 +15,7 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_63row"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_encki"]
+resource_name = "fillin"
 texture = ExtResource("1_ami44")
 texture_region_size = Vector2i(126, 126)
 0:0/0 = 0
@@ -117,4 +118,4 @@ position = Vector2(1575, 252)
 DoorType = 1
 
 [node name="Flag" parent="." instance=ExtResource("11_sdx3d")]
-position = Vector2(127, 176)
+position = Vector2(254, 176)

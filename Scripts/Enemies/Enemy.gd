@@ -7,7 +7,7 @@ enum ENEMY_STATE {
 	MOVE_RIGHT
 }
 
-var CurrentState = ENEMY_STATE.MOVE_RIGHT
+@export var CurrentState = ENEMY_STATE.MOVE_RIGHT
 @export var MoveSpeed = 200
 
 @export var Gravity = 0
@@ -41,3 +41,9 @@ func SwitchDirection():
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Player:
 		body.TakeDamage()
+
+
+func _on_timer_timeout() -> void:
+	$Timer.wait_time = randf_range(2, 5)
+	$Timer.start()
+	$AudioStreamPlayer2D.play()
