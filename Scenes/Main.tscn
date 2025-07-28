@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dh8xyoa35lyqb"]
+[gd_scene load_steps=11 format=3 uid="uid://dh8xyoa35lyqb"]
 
 [ext_resource type="PackedScene" uid="uid://d27x3r18khlcl" path="res://Scenes/Levels/Level1.tscn" id="1_idj7w"]
 [ext_resource type="Script" uid="uid://csvx3f4sximyh" path="res://Scripts/LevelSpawner.gd" id="1_kln2b"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://2xw7qtin2htg" path="res://Prefab/UI/LifeContainer.tscn" id="6_v1gob"]
 [ext_resource type="PackedScene" uid="uid://claqsl8b1khh4" path="res://Prefab/UI/GameOverPanel.tscn" id="7_jw32o"]
 [ext_resource type="PackedScene" uid="uid://dmwlu23w3xidi" path="res://Prefab/BallHolder.tscn" id="8_50glp"]
+[ext_resource type="Texture2D" uid="uid://c0wph134f8mbu" path="res://Art/Background/BG1.png" id="9_vy5pj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v1gob"]
 bg_color = Color(0, 0.0590422, 0.419898, 1)
@@ -20,6 +21,7 @@ script = ExtResource("1_rgh2o")
 script = ExtResource("1_kln2b")
 
 [node name="Node2D" parent="LevelSpawner" instance=ExtResource("1_idj7w")]
+material = null
 position = Vector2(374, -126)
 
 [node name="BallHolder" parent="." instance=ExtResource("8_50glp")]
@@ -58,3 +60,15 @@ offset_bottom = 44.0
 
 [node name="GameOverPanel" parent="CanvasLayer" instance=ExtResource("7_jw32o")]
 visible = false
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="ParallaxLayer" type="Parallax2D" parent="ParallaxBackground"]
+repeat_size = Vector2(1920, 0)
+repeat_times = 20
+follow_viewport = false
+ignore_camera_scroll = true
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
+position = Vector2(419, 154)
+texture = ExtResource("9_vy5pj")

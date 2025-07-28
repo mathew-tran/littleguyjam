@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=4 uid="uid://digkimumsj2um"]
+[gd_scene load_steps=27 format=4 uid="uid://digkimumsj2um"]
 
 [ext_resource type="Script" uid="uid://bpsgu72xf2ecj" path="res://Scripts/LevelBase.gd" id="1_7t6so"]
 [ext_resource type="Texture2D" uid="uid://bply0hpapnoll" path="res://Art/Environment/Dirt.png" id="1_ami44"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://7ft08iyg8e53" path="res://Art/Environment/platformbig.png" id="7_b072a"]
 [ext_resource type="Texture2D" uid="uid://dejt7hariylnc" path="res://Art/Environment/Coin.png" id="9_y3oa2"]
 [ext_resource type="PackedScene" uid="uid://6vyriwpgqtio" path="res://Prefab/CheckpointFlag.tscn" id="11_sdx3d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_28jcb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_63row"]
 
@@ -107,6 +109,7 @@ custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_sdx3d")
 
 [node name="Node2D" type="Node2D"]
+material = SubResource("ShaderMaterial_28jcb")
 script = ExtResource("1_7t6so")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." groups=["Tiles"]]

@@ -5,7 +5,7 @@ class_name Player
 var Eyes = []
 
 var MoveSpeed = 800
-var MaxLength = 500
+var MaxLength = 520
 @onready var TongueEndClass = preload("res://Prefab/TongueEnd.tscn")
 @onready var BulletClass = preload("res://Prefab/FlyBullet.tscn")
 var TongueEndRef = null
