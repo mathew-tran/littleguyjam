@@ -8,6 +8,9 @@ func _on_timer_timeout() -> void:
 		
 	if Finder.GetPlayer().global_position.distance_to(global_position) > 300:
 		return
+		
+	if get_child_count() > 7:
+		return
 	$Timer.stop()
 	$AnimationPlayer.play("anim")
 

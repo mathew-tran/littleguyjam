@@ -18,9 +18,11 @@ func _process(delta: float) -> void:
 
 		velocity *= .8
 
-		if global_position.distance_to(followObjectPosition) > 50:			
+		if global_position.distance_to(followObjectPosition) > 100:			
 			var dir = (followObjectPosition - global_position).normalized()
 			LastDirection = dir
+		else:
+			speed = 0
 		
 		velocity += LastDirection * speed * delta
 		$Sprite2D.flip_h = velocity.x <= 0

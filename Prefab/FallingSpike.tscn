@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://d34xd6uxp0g56"]
+
+[ext_resource type="Texture2D" uid="uid://c7h4ixa5x4nq4" path="res://Art/Environment/FallingSpike.png" id="1_21yom"]
+[ext_resource type="Script" uid="uid://bm72dwht8nlu7" path="res://Scripts/FallingSpike.gd" id="1_hc5ly"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_21yom"]
+radius = 37.1214
+
+[node name="FallingSpike" type="Area2D"]
+collision_layer = 0
+collision_mask = 136
+script = ExtResource("1_hc5ly")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_21yom")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 50000)
+collision_mask = 384
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 48)
+shape = SubResource("CircleShape2D_21yom")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

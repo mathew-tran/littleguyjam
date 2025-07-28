@@ -1,9 +1,7 @@
-[gd_scene load_steps=5 format=4 uid="uid://d27x3r18khlcl"]
+[gd_scene load_steps=3 format=4 uid="uid://d27x3r18khlcl"]
 
 [ext_resource type="PackedScene" uid="uid://digkimumsj2um" path="res://Scenes/Levels/LevelBase.tscn" id="1_5jgm0"]
-[ext_resource type="PackedScene" uid="uid://ifnxdhrg3j8r" path="res://Prefab/Pickup/FlyPickup.tscn" id="2_36ke7"]
-[ext_resource type="PackedScene" uid="uid://eygrdveujgmg" path="res://Prefab/Enemies/Ant.tscn" id="3_riv1q"]
-[ext_resource type="PackedScene" uid="uid://cmtsvvo3akckg" path="res://Prefab/FlySpawner.tscn" id="4_xvio3"]
+[ext_resource type="PackedScene" uid="uid://d34xd6uxp0g56" path="res://Prefab/FallingSpike.tscn" id="2_36ke7"]
 
 [node name="Node2D" instance=ExtResource("1_5jgm0")]
 
@@ -51,11 +49,11 @@ S - Move Away"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="FlyPickup" parent="." index="9" instance=ExtResource("2_36ke7")]
-position = Vector2(573, 146)
+[node name="FallingSpike" parent="." index="9" instance=ExtResource("2_36ke7")]
+position = Vector2(5588, -583)
 
-[node name="Ant" parent="." index="10" instance=ExtResource("3_riv1q")]
-position = Vector2(941, 208)
+[node name="FallingSpike2" parent="." index="10" instance=ExtResource("2_36ke7")]
+position = Vector2(5705, -594)
 
-[node name="FlySpawner" parent="." index="11" instance=ExtResource("4_xvio3")]
-position = Vector2(573, 364)
+[node name="FallingSpike3" parent="." index="11" instance=ExtResource("2_36ke7")]
+position = Vector2(5800, -600)

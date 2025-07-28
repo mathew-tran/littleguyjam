@@ -18,6 +18,7 @@ radius = 35.2278
 radius = 50.6952
 
 [node name="Player" type="RigidBody2D" groups=["Player"]]
+collision_layer = 129
 collision_mask = 3
 mass = 0.3
 physics_material_override = SubResource("PhysicsMaterial_4o3m0")

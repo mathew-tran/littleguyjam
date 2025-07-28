@@ -26,4 +26,13 @@ func _on_body_entered(body: Node2D) -> void:
 	for subbody in bodies:
 		if subbody is Enemy:
 			subbody.TakeDamage()
+		if subbody is TileMapLayer:
+			if subbody.is_in_group("Tiles"):
+				var localPosition = subbody.to_local(global_position)
+				var coords = subbody.local_to_map(localPosition)
+				var tile = subbody.get_cell_tile_data(coords)
+				if tile:
+					var tileData = (tile.get_custom_data("TileType"))
+					if tileData == "BREAKABLE":
+						subbody.set_cell(coords)
 	queue_free()

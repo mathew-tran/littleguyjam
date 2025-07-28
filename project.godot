@@ -73,6 +73,8 @@ Shoot={
 2d_physics/layer_5="TONGUE"
 2d_physics/layer_6="PICKUP"
 2d_physics/layer_7="ENEMIES"
+2d_physics/layer_8="PLAYER"
+2d_physics/layer_9="FLY_BULLET"
 
 [physics]
 

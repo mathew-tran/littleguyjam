@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func SwitchDirection():
-	print("switch")
+
 	match CurrentState:
 			ENEMY_STATE.MOVE_LEFT:
 				CurrentState = ENEMY_STATE.MOVE_RIGHT
@@ -41,9 +41,14 @@ func SwitchDirection():
 				$CollisionShape2D/TextureRect.scale = Vector2(-1, 1)
 
 func TakeDamage():
+	if Health <= 0:
+		return
 	Health -= 1
 	if Health <= 0:
 		Finder.GetGame().AddPoints(PointAmount)
+		var tween = get_tree().create_tween()
+		tween.tween_property(self, "scale", Vector2.ZERO, .1)
+		await tween.finished
 		queue_free()				
 		
 func _on_area_2d_body_entered(body: Node2D) -> void:

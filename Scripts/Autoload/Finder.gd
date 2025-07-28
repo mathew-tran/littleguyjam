@@ -11,3 +11,8 @@ func GetEffectsGroup():
 
 func GetBallHolder() -> BallHolder:
 	return get_tree().get_nodes_in_group("BallHolder")[0]
+
+func GetTongue():
+	var result = get_tree().get_nodes_in_group("Tongue")
+	if result:
+		return result[0]

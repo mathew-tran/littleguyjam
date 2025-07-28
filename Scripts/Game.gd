@@ -3,8 +3,8 @@ extends Node2D
 class_name Game
 
 var Points = 0
-var Health = 3
-var MaxHealth = 3
+var Health = 5
+var MaxHealth = 5
 var LastCheckPointPosition = Vector2.ZERO
 
 signal OnPointAdded(amount)
