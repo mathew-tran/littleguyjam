@@ -6,6 +6,7 @@ var RoomCount = 8
 var Levels = [
 	"res://Scenes/Levels/Level2.tscn",
 	"res://Scenes/Levels/Level3.tscn",
+	"res://Scenes/Levels/Level4.tscn",
 	"res://Scenes/Levels/LevelEnd.tscn"]
 func _ready() -> void:
 	Rooms.push_back(get_child(0))

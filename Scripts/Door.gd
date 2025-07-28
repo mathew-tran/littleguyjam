@@ -13,6 +13,8 @@ signal OnDoorPassed(door)
 
 var bIsUsed = false
 
+func _enter_tree() -> void:
+	visible = false
 func _ready() -> void:
 	if DoorType == DOOR_TYPE.ENTRY:
 		queue_free()
