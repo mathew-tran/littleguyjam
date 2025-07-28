@@ -19,8 +19,6 @@ func OnFlagRaised():
 	for tilePos in $EntryDoor.GetDrawTilePositions():
 		var localPos = $TileMapLayer.to_local(tilePos)
 		var coords = $TileMapLayer.local_to_map(localPos)
-		print(localPos)
-		print(coords)
 		var cellData = $TileMapLayer.get_cell_atlas_coords(coords)
 		$TileMapLayer.set_cell(coords, 0, Vector2i(0,0), 0)
 		$TileMapLayer.queue_redraw()

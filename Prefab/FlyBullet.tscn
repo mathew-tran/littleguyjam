@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://dp1m3dbktvgcj"]
+
+[ext_resource type="Texture2D" uid="uid://dljrcob6aaj2w" path="res://Art/Pickups/SpatOutFly.png" id="1_n7nnv"]
+[ext_resource type="Script" uid="uid://cof5o2ve08r5w" path="res://Scripts/FlyBullet.gd" id="1_trhtd"]
+[ext_resource type="Texture2D" uid="uid://ddmwp4rvin4ic" path="res://Art/Particle/BasicParticle.png" id="2_kdnpa"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_trhtd"]
+radius = 14.8661
+
+[node name="Node2D" type="Area2D"]
+collision_layer = 0
+collision_mask = 72
+script = ExtResource("1_trhtd")
+
+[node name="particle" type="CPUParticles2D" parent="."]
+amount = 10
+texture = ExtResource("2_kdnpa")
+lifetime = 0.1
+gravity = Vector2(0, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_n7nnv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_trhtd")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

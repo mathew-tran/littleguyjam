@@ -30,6 +30,7 @@ linear_damp = 1.0
 script = ExtResource("1_x3d5u")
 
 [node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+z_index = -1
 amount = 50
 texture = ExtResource("2_qe6vn")
 lifetime = 0.3
@@ -65,6 +66,7 @@ stretch_mode = 5
 shape = SubResource("CircleShape2D_hnvup")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
+collision_mask = 49
 
 [node name="TongueCooldown" type="Timer" parent="."]
 wait_time = 0.3

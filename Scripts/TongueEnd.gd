@@ -1,5 +1,7 @@
 extends StaticBody2D
 
+class_name TongueEnd
+
 var OwnerObject = null
 
 var bIsKilled = false

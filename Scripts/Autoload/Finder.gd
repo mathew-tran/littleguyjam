@@ -8,3 +8,6 @@ func GetPlayer() -> Player:
 
 func GetEffectsGroup():
 	return get_tree().get_nodes_in_group("Effects")[0]
+
+func GetBallHolder() -> BallHolder:
+	return get_tree().get_nodes_in_group("BallHolder")[0]

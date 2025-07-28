@@ -11,6 +11,7 @@ size = Vector2(178, 89)
 size = Vector2(29.5, 47.5)
 
 [node name="Ant" type="CharacterBody2D"]
+collision_layer = 65
 collision_mask = 8
 motion_mode = 1
 platform_on_leave = 2

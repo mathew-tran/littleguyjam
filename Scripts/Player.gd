@@ -7,6 +7,7 @@ var Eyes = []
 var MoveSpeed = 800
 var MaxLength = 500
 @onready var TongueEndClass = preload("res://Prefab/TongueEnd.tscn")
+@onready var BulletClass = preload("res://Prefab/FlyBullet.tscn")
 var TongueEndRef = null
 
 var bCanMove = true
@@ -63,6 +64,13 @@ func _process(delta):
 	else:
 		$ProgressBar.visible = false
 		
+	if Input.is_action_just_pressed("Shoot"):
+		if Finder.GetBallHolder().HasBalls():
+			Finder.GetBallHolder().RemoveBall()
+			var instance = BulletClass.instantiate()
+			instance.global_position = global_position
+			instance.Direction = (get_global_mouse_position() - global_position).normalized()
+			Finder.GetEffectsGroup().add_child(instance)
 	if Input.is_action_pressed("Click") and CanUseTongue() and HasTongue() == false:
 		$TongueCooldown.start()
 		$AudioStreamPlayer2D.play()
@@ -79,6 +87,7 @@ func _process(delta):
 		
 		ChangeMouth(true)
 		if $RayCast2D.is_colliding():	
+		
 			TongueEndRef.global_position = $RayCast2D.get_collision_point()
 			TongueEndRef.get_node("PinJoint2D").node_b = get_path()
 			get_parent().add_child(TongueEndRef)
@@ -86,6 +95,10 @@ func _process(delta):
 			angular_velocity = 0
 			$RayCast2D.enabled = false
 			TongueEndRef.EmitParticle()
+			
+			if $RayCast2D.get_collider() is FlyPickup:
+				await $RayCast2D.get_collider().Pickup()
+				return
 		else:
 			TongueEndRef.global_position = to_global($RayCast2D.target_position)
 			get_parent().add_child(TongueEndRef)

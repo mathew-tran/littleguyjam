@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmwlu23w3xidi"]
+
+[ext_resource type="Script" uid="uid://dfv3a7f20ctdf" path="res://Scripts/BallHolder.gd" id="1_sr45i"]
+
+[node name="BallHolder" type="Node2D" groups=["BallHolder"]]
+script = ExtResource("1_sr45i")
+
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_child_exiting_tree"]
