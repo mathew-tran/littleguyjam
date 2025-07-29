@@ -61,11 +61,14 @@ func PlayMusic(musicType : MUSIC_TYPE):
 			return
 
 	
-func PlaySFX(audiostream : AudioStream, position = Vector2.ZERO):
+func PlaySFX(audiostream : AudioStream, position = Vector2.ZERO, channel = 0):
+	var audioPlayer = $SFX
+	if channel == 1:
+		audioPlayer = $SFX2
 	if audiostream:
-		$SFX.global_position = position
-		$SFX.stream = audiostream
-		$SFX.play()
+		audioPlayer.global_position = position
+		audioPlayer.stream = audiostream
+		audioPlayer.play()
 		
 func PlayCollectSFX():
 	$CollectSFX.pitch_scale = randf_range(0.8, 1.2)

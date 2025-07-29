@@ -1,7 +1,23 @@
-[gd_scene load_steps=7 format=3 uid="uid://ifnxdhrg3j8r"]
+[gd_scene load_steps=8 format=3 uid="uid://ifnxdhrg3j8r"]
 
 [ext_resource type="Script" uid="uid://cl4euuq3p1hhl" path="res://Scripts/Pickups/FlyPickup.gd" id="1_8c3vw"]
 [ext_resource type="Texture2D" uid="uid://cyyky3wca1d3o" path="res://Art/Pickups/Fly.png" id="1_mmvr3"]
+[ext_resource type="AudioStream" uid="uid://dd7746pukhn7l" path="res://Audio/SFX/buzz.wav" id="3_nu742"]
+
+[sub_resource type="Animation" id="Animation_u31hs"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_nu742"]
 resource_name = "anim"
@@ -17,21 +33,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(0, 0), Vector2(1, -8), Vector2(0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_u31hs"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ivhsl"]
@@ -60,3 +61,6 @@ libraries = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8c3vw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_nu742")

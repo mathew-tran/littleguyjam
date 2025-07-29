@@ -16,6 +16,8 @@ func OnDoorPassed(door):
 	
 
 func OnFlagRaised():
+		
+	Jukebox.PlaySFX(load("res://Audio/SFX/wallcavein.wav"), Finder.GetPlayer().global_position, 1)
 	for tilePos in $EntryDoor.GetDrawTilePositions():
 		var localPos = $TileMapLayer.to_local(tilePos)
 		var coords = $TileMapLayer.local_to_map(localPos)

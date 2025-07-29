@@ -4,7 +4,8 @@ class_name FlyPickup
 
 func _ready() -> void:
 	$AnimationPlayer.play("anim")
-
+	$AudioStreamPlayer2D.pitch_scale = randfn(.9, 1.2)
+	$AudioStreamPlayer2D.play()
 
 
 

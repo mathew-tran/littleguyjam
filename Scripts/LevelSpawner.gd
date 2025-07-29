@@ -3,6 +3,10 @@ extends Node2D
 var Rooms : Array[LevelBase]
 var RoomCount = 8
 
+var bFirstTime = true
+
+signal OnSpawnerComplete
+
 var Levels = [
 
 	"res://Scenes/Levels/Level2.tscn",
@@ -32,9 +36,11 @@ func SpawnNextDoor():
 	var nextLevel = GetNextLevel()
 	if nextLevel == null:
 		print("GAME OVER")
+		OnSpawnerComplete.emit()
 		return
 	var instance = nextLevel.instantiate() as LevelBase
 	instance.global_position = Rooms.back().GetExitDoor().GetSpawnPosition()
+
 	
 	call_deferred("add_child", instance)
 	
@@ -45,6 +51,9 @@ func SpawnNextDoor():
 		
 	
 func OnDoorPassed(door : Door):
+	
 	SpawnNextDoor()
 	print("OnExitDoorPassed" + door.name)
+	
+	
 	

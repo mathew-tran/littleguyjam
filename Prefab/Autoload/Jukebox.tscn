@@ -17,3 +17,6 @@ stream = ExtResource("3_e0f6t")
 
 [node name="DeadMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_25a18")
+
+[node name="SFX2" type="AudioStreamPlayer2D" parent="."]
+volume_db = 20.0

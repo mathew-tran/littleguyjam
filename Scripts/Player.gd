@@ -17,8 +17,8 @@ var bCanTakeDamage = true
 
 func _ready():
 	ChangeMouth(false)
-	Eyes.append($EyeLeft)
-	Eyes.append($EyeRight)
+	Eyes.append($TextureRect/EyeLeft)
+	Eyes.append($TextureRect/EyeRight)
 
 func FreezeBody():
 	freeze = true
@@ -44,6 +44,21 @@ func UpdateEyes(delta):
 			eye.look_at(get_global_mouse_position())	
 	
 func _process(delta):
+	if $Engine.IsFull():
+		$ProgressBar.visible = false
+	else:
+		$ProgressBar.visible = true
+	$ProgressBar.value = $Engine.GetProgress()
+	$ProgressBar.modulate = lerp(Color.WHITE, Color.RED, 1 - $Engine.GetProgress())
+	
+	if $Engine.CanUse() == false:
+		apply_impulse(Vector2.DOWN * 1500 * delta)
+		linear_damp = .2
+		$TextureRect.scale = Vector2.ONE
+		$TextureRect.modulate = Color.RED
+		RevertTongue()
+	else:
+		$TextureRect.modulate = Color.WHITE
 	if CanMove() == false:
 		return
 		
@@ -53,19 +68,26 @@ func _process(delta):
 		RevertTongue()
 		
 	if Input.is_action_just_pressed("Pop"):
-		if $Timer.time_left == 0.0:
-			$Timer.start()
+		if $Engine.CanUse():
+			$PlayerResettingSFX.play()
+			
 	if Input.is_action_just_released("Pop"):
-		$Timer.stop()
+		$PlayerResettingSFX.stop()
+		$TextureRect.scale = Vector2.ONE
 		
-	if $Timer.time_left != 0.0:
-		$ProgressBar.value = 1- (float($Timer.time_left) / float($Timer.wait_time))
-		$ProgressBar.visible = true
-	else:
-		$ProgressBar.visible = false
-		
+	if Input.is_action_pressed("Pop"):
+		if $Engine.CanUse():
+			var progress = $Engine.GetProgress()
+			var pitch = lerp(.7, 1.2, progress)
+			$PlayerResettingSFX.pitch_scale = pitch
+			$Engine.Use(delta, 120)
+			$TextureRect.scale = (Vector2.ONE * lerp(1.0, 1.75, 1 - progress))
+			apply_impulse(Vector2.UP * 1200 * delta )
+
+	
 	if Input.is_action_just_pressed("Shoot"):
 		if Finder.GetBallHolder().HasBalls():
+			$Engine.Use(delta, 10)
 			Finder.GetBallHolder().RemoveBall()
 			var instance = BulletClass.instantiate()
 			instance.global_position = global_position
@@ -105,8 +127,11 @@ func _process(delta):
 	
 	
 func _physics_process(delta):
+	if $GroundCheck.get_overlapping_bodies():
+		$Engine.Regen(delta)
 	if CanMove():
 		Move(delta)
+		
 		
 func IsConnected():
 	return 
@@ -115,6 +140,16 @@ func Move(delta):
 	var multiplier = 1
 	if HasTongue():
 		multiplier *= 2
+		linear_damp = .5
+		$Engine.Use(delta, 40)
+	else:
+		if $GroundCheck.get_overlapping_bodies():
+			linear_damp = 1
+		else:
+			if $Engine.IsBeingUsed():
+				linear_damp = 3
+			else:
+				linear_damp = 2
 	if Input.is_action_pressed("MoveLeft"):
 		apply_impulse(Vector2.LEFT * MoveSpeed * delta * multiplier)
 	if Input.is_action_pressed("MoveRight"):
@@ -128,7 +163,7 @@ func HasTongue():
 	
 	
 func CanMove():
-	return bCanMove and bIsDead == false
+	return bCanMove and bIsDead == false and $Engine.CanUse()
 	
 func _input(event):
 	if CanMove() == false:
@@ -137,9 +172,9 @@ func _input(event):
 
 func ChangeMouth(bIsUsed):
 	if bIsUsed:
-		$Mouth.texture = load("res://Art/Player/Mouth.png")
+		$TextureRect/Mouth.texture = load("res://Art/Player/Mouth.png")
 	else:
-		$Mouth.texture = load("res://Art/Player/ClosedMouth.png")
+		$TextureRect/Mouth.texture = load("res://Art/Player/ClosedMouth.png")
 		
 func RevertTongue():
 	$RayCast2D.target_position = Vector2.ZERO
@@ -186,7 +221,14 @@ func Die():
 	bCanTakeDamage = false
 	Pop()
 	
+func Replenish():
+	$Engine.Replenish()
+
+func GetEngine():
+	return $Engine
+	
 func MovePlayer(pos):
+	Replenish()
 	Finder.GetGame().Slomo(.3, .1, .001)
 	bCanTakeDamage = false
 	await Pop()
@@ -214,8 +256,3 @@ func _on_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, lo
 func _on_pickup_detector_body_shape_entered(body_rid: RID, body: Node2D, body_shape_index: int, local_shape_index: int) -> void:
 	if body is TileMapLayer:
 		Finder.GetGame().AttemptCoinPickup(body, body_rid)
-
-
-func _on_timer_timeout() -> void:
-	TakeDamage()
-	pass # Replace with function body.

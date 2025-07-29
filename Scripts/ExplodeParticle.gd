@@ -5,6 +5,7 @@ func _enter_tree() -> void:
 	emitting = false
 	
 func _ready() -> void:
+	$AudioStreamPlayer2D.play()
 	one_shot = true
 	emitting = true
 	var tongue = Finder.GetTongue()

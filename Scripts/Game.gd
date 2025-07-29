@@ -3,18 +3,24 @@ extends Node2D
 class_name Game
 
 var Points = 0
-var Health = 5
-var MaxHealth = 5
+var TimesDied = 0
+var Health = 1
+var MaxHealth = 1
 var LastCheckPointPosition = Vector2.ZERO
-
+var TimePassed = 0.0
 signal OnPointAdded(amount)
 signal OnHealthUpdate
 signal OnHealthMaxUpdate
 signal OnGameOver
+signal OnTimeUpdate(amount)
 
 func _ready() -> void:
 	OnHealthMaxUpdate.emit()
 	Jukebox.PlayMusic(JukeboxPlayer.MUSIC_TYPE.LEVEL_1)
+	$LevelSpawner.OnSpawnerComplete.connect(OnSpawnerComplete)
+	
+func OnSpawnerComplete():
+	$LevelSpawner/Time.stop()
 	
 func Slomo(amount, time, recoverTime = .1):
 	if Engine.time_scale != 1:
@@ -28,8 +34,10 @@ func Slomo(amount, time, recoverTime = .1):
 	
 func AddPoints(amount):
 	Points += amount
+	if Points <= 0:
+		Points = 0
 	OnPointAdded.emit(Points)
-	var pointText = "+{points}".format({
+	var pointText = "{points}".format({
 		"points" : str(amount)
 	})
 	Helper.CreateText(Finder.GetPlayer().global_position, pointText, PopupText.POPUP_TYPE.NORMAL)
@@ -41,7 +49,8 @@ func Heal():
 	OnHealthUpdate.emit()
 	
 func TakeDamage():
-	Health -= 1
+	TimesDied += 1
+	AddPoints(-100)
 	OnHealthUpdate.emit()
 	if Health <= 0:
 		Finder.GetPlayer().Die()
@@ -64,3 +73,10 @@ func AttemptCoinPickup(body, body_rid):
 					body.set_cell(coords)
 					Finder.GetGame().AddPoints(100)
 					Jukebox.PlayCollectSFX()
+					Finder.GetPlayer().GetEngine().RegenByAmount(100)
+
+
+func _on_time_timeout() -> void:
+	TimePassed += $LevelSpawner/Time.wait_time
+	TimePassed = snappedf(TimePassed, .1)
+	OnTimeUpdate.emit(TimePassed)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dh8xyoa35lyqb"]
+[gd_scene load_steps=12 format=3 uid="uid://dh8xyoa35lyqb"]
 
 [ext_resource type="PackedScene" uid="uid://d27x3r18khlcl" path="res://Scenes/Levels/Level1.tscn" id="1_idj7w"]
 [ext_resource type="Script" uid="uid://csvx3f4sximyh" path="res://Scripts/LevelSpawner.gd" id="1_kln2b"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://db3peedshigyr" path="res://Scripts/Game.gd" id="1_rgh2o"]
 [ext_resource type="Script" uid="uid://bkeseubo5a3ff" path="res://Scripts/UI/PointsText.gd" id="5_pbw6q"]
 [ext_resource type="PackedScene" uid="uid://2xw7qtin2htg" path="res://Prefab/UI/LifeContainer.tscn" id="6_v1gob"]
+[ext_resource type="Script" uid="uid://dr848wrtqrgbf" path="res://Scripts/TimeTaken.gd" id="7_bmxlf"]
 [ext_resource type="PackedScene" uid="uid://claqsl8b1khh4" path="res://Prefab/UI/GameOverPanel.tscn" id="7_jw32o"]
 [ext_resource type="PackedScene" uid="uid://dmwlu23w3xidi" path="res://Prefab/BallHolder.tscn" id="8_50glp"]
 [ext_resource type="Texture2D" uid="uid://c0wph134f8mbu" path="res://Art/Background/BG1.png" id="9_vy5pj"]
@@ -24,6 +25,10 @@ script = ExtResource("1_kln2b")
 material = null
 position = Vector2(374, -126)
 
+[node name="Time" type="Timer" parent="LevelSpawner"]
+wait_time = 0.1
+autostart = true
+
 [node name="BallHolder" parent="." instance=ExtResource("8_50glp")]
 
 [node name="Player" parent="." instance=ExtResource("1_r150o")]
@@ -35,6 +40,7 @@ disable_mode = 2
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
 custom_minimum_size = Vector2(1152, 50)
 anchors_preset = 10
 anchor_right = 1.0
@@ -52,7 +58,21 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("5_pbw6q")
 
+[node name="Time" type="Label" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -112.0
+offset_bottom = 77.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "01000"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_bmxlf")
+
 [node name="LifeContainer" parent="CanvasLayer" instance=ExtResource("6_v1gob")]
+visible = false
 offset_left = 6.0
 offset_top = 4.0
 offset_right = 90.0
@@ -72,3 +92,5 @@ ignore_camera_scroll = true
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2(419, 154)
 texture = ExtResource("9_vy5pj")
+
+[connection signal="timeout" from="LevelSpawner/Time" to="." method="_on_time_timeout"]
